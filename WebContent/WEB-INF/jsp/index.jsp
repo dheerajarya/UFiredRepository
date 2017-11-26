@@ -471,7 +471,7 @@ Fired Put a Video what you Learnt Get Hired.</p>
         </div>
       </div>
     </div>
-        
+    </div>  
     <!-- Main JS  -->
     <script type="text/javascript" src="assets/js/jquery-min.js"></script>      
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>    
@@ -490,24 +490,17 @@ Fired Put a Video what you Learnt Get Hired.</p>
     <script type="text/javascript" src="assets/js/jquery.themepunch.revolution.min.js"></script>
     <script type="text/javascript" src="assets/js/jquery.themepunch.tools.min.js"></script>
     </form>
-     <script type="text/javascript">
-      function onSignIn(googleUser) {
-      var profile = googleUser.getBasicProfile();
-      var imagurl=profile.getImageUrl();
-      var name=profile.getName();
-      var email=profile.getEmail();
-      document.getElementById("myImg").src = imagurl;
-      document.getElementById("name").innerHTML = name;
-      document.getElementById("myP").style.visibility = "hidden";
-      document.getElementById("status").innerHTML = 'Welcome '+name+'!<a href=job_listing.jsp?                  
-      email='+email+'&name='+name+'/>Continue with Google login</a></p>'
-   }
-   </script>
-   <script>
-      function myFunction() {
-      gapi.auth2.getAuthInstance().disconnect();
-      location.reload();
-   }
-   </script>
-  </body>
+<script>
+			function onSignIn(googleUser) {
+				  var profile = googleUser.getBasicProfile();
+				  var imagurl=profile.getImageUrl();
+				  var name=profile.getName();
+				  var email=profile.getEmail();
+				  document.getElementById("myImg").src = imagurl;
+				  document.getElementById("name").innerHTML = name;
+				  document.getElementById("myP").style.visibility = "hidden";
+				  document.getElementById("status").innerHTML = 'Welcome '+name+'!<a href=JobListingController?email='+email+'&name='+name+'/>Continue with Google login</a></p>'
+			 }
+</script>
+</body>
 </html>
