@@ -115,6 +115,12 @@
 				out.println(name);
 				
 			} 
+			else{
+				String name = (String) request.getAttribute("name");
+				/* out.print("Hello, " + name + "  Welcome to ur Profile");
+				out.println(session.getId());*/
+				out.println(name);
+			}
 		}
 	%> 
                   
