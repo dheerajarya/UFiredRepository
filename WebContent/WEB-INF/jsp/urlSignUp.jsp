@@ -200,7 +200,7 @@
     <h3>Welcome to uFired.com. Last step and you are done!!</h3>
     
 
-<form class="form" action="UrlSignUpController" method="post">
+<form name="myform" id="myform" class="form" action="UrlSignUpController" method="post">
 <div class="form-group">
      <label for="message" style="text-align: center; color:red;">${message}</label>
   </div>
@@ -252,7 +252,44 @@
    <textarea class="form-control" id="comments" name="comments" rows="3" maxlength="200" required>Job Description</textarea>
   </div>
   
-   <div class="form-group"> 
+	<!-- <div class="form-group">   
+		<select name="country" class="countries" id="countryId">
+		<option value="">Select Country</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<select name="state" class="states" id="stateId">
+		<option value="">Select State</option>
+		</select>
+	</div>
+	<div class="form-group">	
+		<select name="city" class="cities" id="cityId">
+		<option value="">Select City</option>
+		</select>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://iamrohit.in/lab/js/location.js"></script> -->
+<div class="form-group">
+	 <select id="countySel" class="form-control">
+        <option value="" selected="selected">Select Country</option>
+    </select>
+</div>
+<div class="form-group">  
+    <select id="stateSel" class="form-control">
+        <option value="" selected="selected">Select State</option>
+    </select>
+</div>
+<div class="form-group">
+    <select id="citySel" class="form-control" >
+        <option value="" selected="selected">Select City</option>
+    </select>
+</div>
+<div class="form-group">    
+    <select id="zipSel" class="form-control" >
+        <option value="" selected="selected">Select Zip</option>
+    </select>
+</div>  
+   <!-- <div class="form-group"> 
     
     <input type="text" class="form-control" name = "country" value="" class="input" placeholder="Country" 
     maxlength="30" required>
@@ -267,11 +304,11 @@
     
     <input type="text" class="form-control" name = "city" value="" class="input" placeholder="City" 
     maxlength="30" required>
-  </div>
-   <div class="form-group">
+  </div> -->
+  <!--  <div class="form-group">
     <input type="text" class="form-control" name = "zipCode" id="zipcode" 
      placeholder="zipcode" onkeypress="return isNumber(event)" maxlength="20" required>
-  </div>   
+  </div>  -->  
   
   <div class="controls">
    <button id="signin" name="submit" class="btn orange_button" value="UrlSignUpController">Submit</button> 
@@ -391,7 +428,89 @@
     <script type="text/javascript" src="assets/js/jquery.slicknav.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
     <script type="text/javascript" src="assets/js/jquery.counterup.min.js"></script>
-       
+    
+    
+    <script>
+    	var countryStateInfo = {
+	"USA": {
+		"California": {
+			"Los Angeles": ["90001", "90002", "90003", "90004"],
+			"San Diego": ["92093", "92101"]
+		},
+		"Texas": {
+			"Dallas": ["75201", "75202"],
+			"Austin": ["73301", "73344"]
+		}
+	},
+	"India": {
+		"Assam": {
+			"Dispur": ["781005"],
+			"Guwahati" : ["781030", "781030"]
+		},
+		"Gujarat": {
+			"Vadodara" : ["390011", "390020"],
+			"Surat" : ["395006", "395002"]
+		}
+	}
+}
+
+
+window.onload = function () {
+	//Get html elements
+	var countySel = document.getElementById("countySel");
+	var stateSel = document.getElementById("stateSel");	
+	var citySel = document.getElementById("citySel");
+	var zipSel = document.getElementById("zipSel");
+	
+	//Load countries
+	for (var country in countryStateInfo) {
+		countySel.options[countySel.options.length] = new Option(country, country);
+	}
+	
+	//County Changed
+	countySel.onchange = function () {
+		 
+		 stateSel.length = 1; // remove all options bar first
+		 citySel.length = 1; // remove all options bar first
+		 zipSel.length = 1; // remove all options bar first
+		 
+		 if (this.selectedIndex < 1)
+			 return; // done
+		 
+		 for (var state in countryStateInfo[this.value]) {
+			 stateSel.options[stateSel.options.length] = new Option(state, state);
+		 }
+	}
+	
+	//State Changed
+	stateSel.onchange = function () {		 
+		 
+		 citySel.length = 1; // remove all options bar first
+		 zipSel.length = 1; // remove all options bar first
+		 
+		 if (this.selectedIndex < 1)
+			 return; // done
+		 
+		 for (var city in countryStateInfo[countySel.value][this.value]) {
+			 citySel.options[citySel.options.length] = new Option(city, city);
+		 }
+	}
+	
+	//City Changed
+	citySel.onchange = function () {
+		zipSel.length = 1; // remove all options bar first
+		
+		if (this.selectedIndex < 1)
+			return; // done
+		
+		var zips = countryStateInfo[countySel.value][stateSel.value][this.value];
+		for (var i = 0; i < zips.length; i++) {
+			zipSel.options[zipSel.options.length] = new Option(zips[i], zips[i]);
+		}
+	}	
+}
+    	
+    </script>  
     
   </body>
 </html>
