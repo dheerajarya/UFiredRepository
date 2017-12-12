@@ -7,7 +7,7 @@ public class SendEmailTest {
  public static void main(String[] args) {  
   
   final String user="SenderEmailAddress";//change accordingly  
-  final String password="02011991";//change accordingly  
+  final String password="pass";//change accordingly  
     
   String to="ReceiverEmailAddress";//change accordingly  
   
