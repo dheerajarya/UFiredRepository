@@ -36,7 +36,7 @@ public class SendEmailTest {
      MimeMessage message = new MimeMessage(session);  
      message.setFrom(new InternetAddress(user));  
      message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));  
-     message.setSubject("Send Email Test");  
+     message.setSubject("Send Email Test");   
      message.setText("This is simple program of sending email using JavaMail API");  
        
     //send the message  
