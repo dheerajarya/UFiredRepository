@@ -295,7 +295,7 @@
     maxlength="30" required>
      
   </div>
-  <div class="form-group">   
+  <div class="form-group">    
     
     <input type="text" class="form-control" name = "state" value="" class="input" placeholder="State" 
     maxlength="30" required>
