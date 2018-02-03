@@ -15,7 +15,7 @@
     <servlet-name>LoginController</servlet-name>
     <url-pattern>/Login</url-pattern>
   </servlet-mapping>
-   <servlet>
+ <!--   <servlet>
     <servlet-name>GmailLoginController</servlet-name>
     <servlet-class>com.ufired.Servlet.GmailLoginController</servlet-class>
     <init-param>
@@ -26,6 +26,19 @@
   <servlet-mapping>
     <servlet-name>GmailLoginController</servlet-name>
     <url-pattern>/GmailLogin</url-pattern>
+  </servlet-mapping> -->
+  
+ <servlet>
+    <servlet-name>ContactController</servlet-name>
+    <servlet-class>com.ufired.Servlet.ContactController</servlet-class>
+    <init-param>
+      <param-name>development</param-name>
+      <param-value>true</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ContactController</servlet-name>
+    <url-pattern>/Contact</url-pattern>
   </servlet-mapping>
  
   <servlet>
