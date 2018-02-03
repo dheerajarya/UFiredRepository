@@ -73,10 +73,10 @@
                     Employer </a> -->
                   </li>
                   <li>
-                    <a href="#">
+                   <!--  <a href="contact.jsp" name="contact">
                     Contact
-                    </a>
-                  
+                    </a> -->
+                  <a href="<%=request.getContextPath()%>/Contact?action=Contact" name="Contact">Contact</a>
                   </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right float-right">
@@ -493,13 +493,14 @@ Fired Put a Video what you Learnt Get Hired.</p>
 <script>
 			function onSignIn(googleUser) {
 				  var profile = googleUser.getBasicProfile();
-				  var imagurl=profile.getImageUrl();
+				 // var imagurl=profile.getImageUrl();
 				  var name=profile.getName();
 				  var email=profile.getEmail();
-				  document.getElementById("myImg").src = imagurl;
-				  document.getElementById("name").innerHTML = name;
+				  //document.getElementById("myImg").src = imagurl;
+				  //document.getElementById("name").innerHTML = name;
+				  request.setAttribute("name",name);
 				  document.getElementById("myP").style.visibility = "hidden";
-				  document.getElementById("status").innerHTML = 'Welcome '+name+'!<a href=JobListingController?email='+email+'&name='+name+'/>Continue with Google login</a></p>'
+				  window.location = "JobListingController?email='+email+'&name='+name+'"
 			 }
 </script>
 </body>
