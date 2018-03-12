@@ -6,10 +6,10 @@ import javax.mail.internet.*;
 public class SendEmailTest {  
  public static void main(String[] args) {  
   
-  final String user="SenderEmailAddress";//change accordingly  
-  final String password="pass";//change accordingly  
+  final String user="dheerajufired@gmail.com";//change accordingly  
+  final String password="password2@";//change accordingly  
     
-  String to="ReceiverEmailAddress";//change accordingly  
+  String to="intouchdheeraj@gmail.com";//change accordingly  
   
    //Get the session object  
   Properties props = new Properties();  
@@ -41,7 +41,7 @@ public class SendEmailTest {
        
     //send the message  
      Transport transport = session.getTransport("smtp");
-     transport.connect("smtp.gmail.com", 465, "username", "password");
+     transport.connect("smtp.gmail.com", 465, user, password);
      transport.sendMessage(message, message.getAllRecipients());
      transport.close();
   

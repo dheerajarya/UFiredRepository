@@ -27,16 +27,13 @@ public class ContactController
 
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException
-  {
-    
-    HttpSession session = request.getSession();
-    String contact = request.getParameter("action");
-    if (session != null) {
-    	if ((contact != null) && (contact.equalsIgnoreCase(contact))) {
-            request.getRequestDispatcher("/WEB-INF/jsp/contact.jsp").forward(request, response);
-          }
-      
-    }
-    }
+		  throws ServletException, IOException{ 
+	  HttpSession session = request.getSession();
+	  String contact = request.getParameter("action");
+	  if (session != null) {
+		  if ((contact != null) && (contact.equalsIgnoreCase(contact))) {
+			  request.getRequestDispatcher("/WEB-INF/jsp/contact.jsp").forward(request, response);
+		  } 
+	  }
+  }
 }

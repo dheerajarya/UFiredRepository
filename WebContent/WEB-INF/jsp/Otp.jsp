@@ -71,9 +71,13 @@
                   </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right float-right">
-                  <li class="left"> <a href="#signup" data-toggle="modal" data-target=".bs-modal-sm"><i class="ti-lock"></i>  Login</a>
+                  <li class="left"> 
+                  <a href="<%=request.getContextPath()%>/Login?action=LoginPage" name="Login">Login</a>
+                  
 </li>
-                 <li class="right"> <button class="btn signup" href="signup.html"></i>  Signup</button>
+                 <li class="right">
+                  <a href="<%=request.getContextPath()%>/SignUp?action=SignUpPage" name="SignUp">SIGN UP</a>
+                  
         </li>         
               
 </li>
@@ -134,21 +138,30 @@
 <div class="col-md-5 col-ld-5 col-xs-12 col-sm-5 white registration2">
 
 <strong> Enter one time password </strong>
-   <h3>One Time Password (OTP) has been sent to your mobile ******7896. Please enter same here to login.</h3>
+   <h3>One Time Password (OTP) has been sent to your Email .Please enter same here to Complete Registeration.</h3>
     <p></p>
     
  
- <form>
+<form class="form" action="SignUp" method="post">
+<div class="form-group">
+     <label for="message" style="text-align: center; color:green;">${message}</label>
+  </div>
+
  <div class="control-group">
               <div class="controls">
-                <input required="" id="userid" name="userid" type="text" class="form-control" placeholder="OTP" class="input-medium" required="">
+                <input required="" id="otp" name="otp" type="text" class="form-control" placeholder="OTP" class="input-medium" 
+                maxlength="4" required="">
               </div>
             </div>
              <div class="control-group">
               <div class="controls">
-                <button id="signin" name="verify" class="btn orange_button">Verify</button>
+               <!--  <button id="signin" name="verify" class="btn orange_button">Verify</button> -->
+                
+                 
+   			<button id="submit" name="OtpSubmit" class="btn orange_button" value="OtpSubmit">Verify</button>
+ 
               </div>
-             <div class="forget"><a href=#> Get OTP Call</a></div>
+             <!-- <div class="forget"><a href=#> Get OTP Call</a></div> -->
             </div>
             </fieldset>
 </form>

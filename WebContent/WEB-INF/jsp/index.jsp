@@ -62,12 +62,12 @@
                 <div class="collapse navbar-collapse" id="navbar">              
                 <!-- Start Navigation List -->
                 <ul class="nav navbar-nav">
-                  <li>
+                  <!-- <li>
                     <a class="active" href="index.jsp">
                     Talent 
                     </a>
                    
-                  </li>
+                  </li> -->
                   <li>
                     <!-- <a href="#">
                     Employer </a> -->

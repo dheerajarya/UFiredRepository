@@ -68,7 +68,7 @@
                 <div class="collapse navbar-collapse" id="navbar">              
                 <!-- Start Navigation List -->
                 <ul class="nav navbar-nav">
-                  <li>
+               <!--    <li>
                     <a class="active" href="index.jsp">
                     Talent 
                     </a>
@@ -77,11 +77,9 @@
                   <li>
                     <a href="#">
                     Employer </a>
-                  </li>
+                  </li> -->
                   <li>
-                    <a href="#">
-                    Contact
-                    </a>
+                     <a href="<%=request.getContextPath()%>/Contact?action=Contact" name="Contact">Contact</a>
                   
                   </li>
                 </ul>

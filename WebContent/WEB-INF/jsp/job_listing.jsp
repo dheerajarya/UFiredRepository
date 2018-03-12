@@ -89,10 +89,7 @@
                     Employer </a>
                   </li> -->
                   <li>
-                    <a href="#">
-                    Contact
-                    </a>
-                  
+                   <a href="<%=request.getContextPath()%>/Contact?action=Contact" name="Contact">Contact</a> 
                   </li>
                 </ul>
           <!--   </form>     -->

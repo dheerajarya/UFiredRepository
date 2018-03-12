@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,18 +38,27 @@ extends HttpServlet
 		String password = request.getParameter("pass");
 		String empType = request.getParameter("empType");
 		HttpSession session = request.getSession(true);
+		RequestDispatcher dispatcherSignUp = request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp"); 
+		RequestDispatcher dispatcherLogin = request.getRequestDispatcher("/WEB-INF/jsp/LoginPage.jsp");
+		RequestDispatcher dispatcherForgotPwd = request.getRequestDispatcher("/WEB-INF/jsp/ForgotPassword.jsp"); 
+		
 		if (session != null) {
 			String pageLoad = request.getParameter("action");
-			if ((pageLoad != null) && (pageLoad.equalsIgnoreCase("LoginPage")))
-			{
+			if ((pageLoad != null) && (pageLoad.equalsIgnoreCase("LoginPage"))){
 				session.removeAttribute("jobDetailsList");
 				session.removeAttribute("userInfo");
 				session.removeAttribute("loginUserName");
-				request.getRequestDispatcher("/WEB-INF/jsp/LoginPage.jsp").forward(request, response);
+				dispatcherLogin.include(request, response);
+				//request.getRequestDispatcher("/WEB-INF/jsp/LoginPage.jsp").forward(request, response);
 			} else if ((pageLoad != null) && (pageLoad.equalsIgnoreCase("SignUpPage"))) {
-				request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
+				dispatcherSignUp.include(request, response);
+				//request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
 			} else if ((pageLoad != null) && (pageLoad.equalsIgnoreCase("ForgotPwd"))) {
-				request.getRequestDispatcher("/WEB-INF/jsp/ForgotPassword.jsp").forward(request, response);
+				dispatcherForgotPwd.include(request, response);
+				//request.getRequestDispatcher("/WEB-INF/jsp/ForgotPassword.jsp").forward(request, response);
+			}else if ((pageLoad != null) && (pageLoad.equalsIgnoreCase("ContactPage"))) {
+				//request.getRequestDispatcher("/WEB-INF/html/googleMap.html").forward(request, response);
+				request.getRequestDispatcher("/WEB-INF/jsp/contact.jsp").forward(request, response);
 			}
 			/*else if ((pageLoad != null) && (pageLoad.equalsIgnoreCase("RecordResume"))) {
     	  try {
@@ -85,7 +95,8 @@ extends HttpServlet
 
       }*/
 			else if ((userInfo == null) || (password == null)) {
-				request.getRequestDispatcher("/WEB-INF/jsp/LoginPage.jsp").forward(request, response);
+				dispatcherLogin.include(request, response);
+				//request.getRequestDispatcher("/WEB-INF/jsp/LoginPage.jsp").forward(request, response);
 			}
 			else 
 			{
@@ -117,7 +128,8 @@ extends HttpServlet
 					} else {
 						String errorMessage = "Either user name or password is wrong.";
 						request.setAttribute("errorMessage", errorMessage);
-						request.getRequestDispatcher("/WEB-INF/jsp/LoginPage.jsp").forward(request, response);
+						dispatcherLogin.include(request, response);
+						//request.getRequestDispatcher("/WEB-INF/jsp/LoginPage.jsp").forward(request, response);
 					}
 				}
 				catch (SQLException e)
