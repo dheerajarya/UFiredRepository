@@ -87,21 +87,22 @@ public class UrlSignUpController
           if (count > 0) {
             message = "Job Uploaded Successully";
             request.setAttribute("message", message);
-            session.setAttribute("userInfo", loggedUserEmail);
+            session.setAttribute("userInfo", userEmail);
             request.getRequestDispatcher("/WEB-INF/jsp/urlSignUp.jsp").forward(request, response);
           } else {
             message = "Job Upload Fail. Please try again.";
             request.setAttribute("message", message);
-            session.setAttribute("userInfo", loggedUserEmail);
+            session.setAttribute("userInfo", userEmail);
             request.getRequestDispatcher("/WEB-INF/jsp/urlSignUp.jsp").forward(request, response);
           }
         }
       } else {
+    	  session.setAttribute("userInfo", userEmail);
         request.getRequestDispatcher("/WEB-INF/jsp/urlSignUp.jsp").forward(request, response);
       }
     } else {
       message = "Job Upload Fail. Please try again.";
-      request.setAttribute("message", message);
+      request.setAttribute("message", message); 
       request.getRequestDispatcher("/WEB-INF/jsp/urlSignUp.jsp").forward(request, response);
     }
   }

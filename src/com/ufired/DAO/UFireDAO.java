@@ -1,5 +1,6 @@
 package com.ufired.DAO;
 
+import com.ufired.Model.JobApplyDetails;
 import com.ufired.Model.JobDetails;
 import com.ufired.Model.Users;
 import com.ufired.Servlet.DBConnection;
@@ -23,21 +24,21 @@ public class UFireDAO extends BaseDAO
     System.out.println("Con value::" + con);
     int row = 0;
     if (con != null) {
-      String query = " insert into USERS (ID, EMP_TYPE,EMAIL, FIRST_NAME, LAST_NAME, TELPHONE,USER_INFO,DATE_TIME,PASSWORD,ACTIVATE_FLAG) values (?, ?, ?, ?, ?,  ?,  ?, ?, ? , ?)";
+      String query = " insert into USERS ( EMP_TYPE,EMAIL, FIRST_NAME, LAST_NAME, TELPHONE,USER_INFO,DATE_TIME,PASSWORD,ACTIVATE_FLAG) values ( ?, ?, ?, ?,  ?,  ?, ?, ? , ?)";
       
       PreparedStatement preparedStmt = null;
       try {
         preparedStmt = con.prepareStatement(query);
-        preparedStmt.setInt(1, users.getId());
-        preparedStmt.setString(2, users.getEmpType());
-        preparedStmt.setString(3, users.getEmail());
-        preparedStmt.setString(4, users.getFirstName());
-        preparedStmt.setString(5, users.getLastName());
-        preparedStmt.setString(6, users.getTelephone());
-        preparedStmt.setString(7, users.getFirstName());
-        preparedStmt.setTimestamp(8, getcurrentDateTime());
-        preparedStmt.setString(9, users.getPassword());
-        preparedStmt.setString(10, "N");
+       // preparedStmt.setInt(1, users.getId());
+        preparedStmt.setString(1, users.getEmpType());
+        preparedStmt.setString(2, users.getEmail());
+        preparedStmt.setString(3, users.getFirstName());
+        preparedStmt.setString(4, users.getLastName());
+        preparedStmt.setString(5, users.getTelephone());
+        preparedStmt.setString(6, users.getFirstName());
+        preparedStmt.setTimestamp(7, getcurrentDateTime());
+        preparedStmt.setString(8, users.getPassword());
+        preparedStmt.setString(9, "N");
         row = preparedStmt.executeUpdate();
         preparedStmt.close();
         con.close();
@@ -373,26 +374,26 @@ public class UFireDAO extends BaseDAO
     System.out.println("Con value::" + con);
     int row = 0;
     if (con != null) {
-      String query = " insert into JOB_DETAILS (ID, JOB_HEADER,COMPANY_NAME, JOB_DESCRIPTION, EXPERIENCE, JOB_VIDEO_URL,JOB_VIDEO_FULL_URL,SALARY,EMAIL,COUNTRY,STATE,CITY,ZIPCODE,USER_INFO,DATE_TIME) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+      String query = " insert into JOB_DETAILS ( JOB_HEADER,COMPANY_NAME, JOB_DESCRIPTION, EXPERIENCE, JOB_VIDEO_URL,JOB_VIDEO_FULL_URL,SALARY,EMAIL,COUNTRY,STATE,CITY,ZIPCODE,USER_INFO,DATE_TIME) values ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
       
       PreparedStatement preparedStmt = null;
       try {
         preparedStmt = con.prepareStatement(query);
-        preparedStmt.setInt(1, jobDetails.getId());
-        preparedStmt.setString(2, jobDetails.getJobHeader());
-        preparedStmt.setString(3, jobDetails.getCompanyName());
-        preparedStmt.setString(4, jobDetails.getJobDescription());
-        preparedStmt.setString(5, jobDetails.getExperience());
-        preparedStmt.setString(6, jobDetails.getJobVideoURL());
-        preparedStmt.setString(7, jobDetails.getJobURLFull());
-        preparedStmt.setString(8, jobDetails.getSalary());
-        preparedStmt.setString(9, jobDetails.getEmail());
-        preparedStmt.setString(10, jobDetails.getCountry());
-        preparedStmt.setString(11, jobDetails.getState());
-        preparedStmt.setString(12, jobDetails.getCity());
-        preparedStmt.setInt(13, jobDetails.getZipCode());
-        preparedStmt.setString(14, jobDetails.getEmail());
-        preparedStmt.setTimestamp(15, getcurrentDateTime());
+       // preparedStmt.setInt(1, jobDetails.getId());
+        preparedStmt.setString(1, jobDetails.getJobHeader());
+        preparedStmt.setString(2, jobDetails.getCompanyName());
+        preparedStmt.setString(3, jobDetails.getJobDescription());
+        preparedStmt.setString(4, jobDetails.getExperience());
+        preparedStmt.setString(5, jobDetails.getJobVideoURL());
+        preparedStmt.setString(6, jobDetails.getJobURLFull());
+        preparedStmt.setString(7, jobDetails.getSalary());
+        preparedStmt.setString(8, jobDetails.getEmail());
+        preparedStmt.setString(9, jobDetails.getCountry());
+        preparedStmt.setString(10, jobDetails.getState());
+        preparedStmt.setString(11, jobDetails.getCity());
+        preparedStmt.setInt(12, jobDetails.getZipCode());
+        preparedStmt.setString(13, jobDetails.getEmail());
+        preparedStmt.setTimestamp(14, getcurrentDateTime());
         
         row = preparedStmt.executeUpdate();
         preparedStmt.close();
@@ -413,6 +414,56 @@ public class UFireDAO extends BaseDAO
     Statement st = null;
     if (con != null) {
       String query = "select EMAIL from JOB_DETAILS where email =  '" + email + "' ";
+      try {
+        st = con.createStatement();
+        rs = st.executeQuery(query);
+        while (rs.next()) {
+          isRecordExists = true;
+        }
+        con.close();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      } finally {
+        baseDAO.close(st, rs);
+      }
+    }
+    return isRecordExists;
+  }
+  
+  public int insertIntoJobApplyDtls(JobApplyDetails jobApplyDetails) {
+	    Connection con = DBConnection.getConnection();
+	    System.out.println("Con value::" + con);
+	    int row = 0;
+	    if (con != null) {
+	      String query = " insert into JOB_APPLY_DETAILS ( JOB_ID,JOB_APPLIED_BY,USER_INFO,DATE_TIME) values ( ?, ?, ?, ?)";
+	      
+	      PreparedStatement preparedStmt = null;
+	      try {
+	        preparedStmt = con.prepareStatement(query);
+	       // preparedStmt.setInt(1,jobApplyDetails.getId() );
+	        preparedStmt.setInt(1, jobApplyDetails.getJobId());
+	        preparedStmt.setString(2, jobApplyDetails.getEmail());
+	        preparedStmt.setString(3, jobApplyDetails.getEmail()); 
+	        preparedStmt.setTimestamp(4, getcurrentDateTime()); 
+	        row = preparedStmt.executeUpdate();
+	        preparedStmt.close();
+	        con.close();
+	      }
+	      catch (SQLException e) {
+	        e.printStackTrace();
+	      }
+	    }
+	    return row;
+	  }
+  
+  public boolean checkExistingUserInJobApplyDtls(JobDetails jobDetails)
+  {
+    boolean isRecordExists = false;
+    Connection con = DBConnection.getConnection();
+    ResultSet rs = null;
+    Statement st = null;
+    if (con != null) {
+      String query = "select USER_INFO from JOB_APPLY_DETAILS where JOB_APPLIED_BY =  '" + jobDetails.getEmail() + "' and  JOB_ID = '" + jobDetails.getId() + "' ";
       try {
         st = con.createStatement();
         rs = st.executeQuery(query);

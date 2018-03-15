@@ -1,6 +1,7 @@
 package com.ufired.Servlet;
 
 import com.ufired.DAO.UFireDAO;
+import com.ufired.Model.JobApplyDetails;
 import com.ufired.Model.JobDetails;
 import com.ufired.Model.Users;
 import java.io.IOException;
@@ -35,6 +36,12 @@ public class JobListingController
     String applyBtnID = request.getParameter("applyBtnID");
     String UrlSignUp = request.getParameter("action"); 
     System.out.println("Sesion ID in JobListingController Page ...>>>" + session.getId());
+    RequestDispatcher dispatcherJobListing = request.getRequestDispatcher("/WEB-INF/jsp/job_listing.jsp");
+	RequestDispatcher dispatcherContact = request.getRequestDispatcher("/WEB-INF/jsp/contact.jsp");
+	RequestDispatcher dispatcherUrlSignUp = request.getRequestDispatcher("/WEB-INF/jsp/urlSignUp.jsp");
+	String jobApplyMsg ="";
+	int jobDtlCount=0;
+	JobApplyDetails jobApplyDtls = null;
     
     if (session != null) {
     	List<JobDetails> jobDetailList = (List)session.getAttribute("jobDetailsList"); 
@@ -42,16 +49,37 @@ public class JobListingController
     	String loginUserName = (String)session.getAttribute("loginUserName");
     	session.setAttribute("loginUserName", loginUserName);
     	session.setAttribute("userInfo", userInfo); 
+    	jobApplyMsg = ""; 
     	if ((pageLoad != null) && (pageLoad.equalsIgnoreCase("ContactPage"))) {
-    		request.getRequestDispatcher("/WEB-INF/jsp/contact.jsp").forward(request, response);
+    		//request.getRequestDispatcher("/WEB-INF/jsp/contact.jsp").forward(request, response);
+    		dispatcherContact.include( request, response ); 
     	} 
 
     	if ((UrlSignUp != null) && (UrlSignUp.equalsIgnoreCase("UrlSignUp"))) {
-    		request.getRequestDispatcher("/WEB-INF/jsp/urlSignUp.jsp").forward(request, response);
+    		jobApplyMsg = ""; 
+    		dispatcherUrlSignUp.include( request, response ); 
+    		//request.getRequestDispatcher("/WEB-INF/jsp/urlSignUp.jsp").forward(request, response);
     	} else if ((applyBtnID != null) && (jobDetailList != null) && (jobDetailList.size() > 0)) {
-    		JobDetails localJobDetails = (JobDetails)jobDetailList.get(Integer.parseInt(applyBtnID)); 
+    		jobApplyDtls = new JobApplyDetails();
+    		int selectJobId = Integer.parseInt(applyBtnID);
+    		selectJobId = selectJobId-1;
+    		JobDetails localJobDetails = (JobDetails)jobDetailList.get(selectJobId); 
+    		jobApplyDtls.setEmail(localJobDetails.getEmail());
+    		jobApplyDtls.setJobId(localJobDetails.getId());
+    		if(localJobDetails != null){
+    			boolean jobApplied = uFireDAO.checkExistingUserInJobApplyDtls(localJobDetails);
+    			if(jobApplied){
+    				jobApplyMsg = "You have already applied for this job."; 
+    			}else{
+    				jobDtlCount = uFireDAO.insertIntoJobApplyDtls(jobApplyDtls);
+    				jobApplyMsg = "You have successfully applied for this job.";
+    			} 
+    			session.setAttribute("jobApplyMsg", jobApplyMsg);
+    			dispatcherJobListing.include( request, response ); 
+    		} 
     	}
     	else{
+    		jobApplyMsg = ""; 
     		String keyword = request.getParameter("keyword");
     		String company = request.getParameter("company");
     		String category = request.getParameter("category");
@@ -81,9 +109,9 @@ public class JobListingController
     				request.setAttribute("errorMessage", errorMessage);
     			} else {
     				request.setAttribute("errorMessage", "");
-    			}
-
-    			request.getRequestDispatcher("/WEB-INF/jsp/job_listing.jsp").forward(request, response);
+    			} 
+    			//request.getRequestDispatcher("/WEB-INF/jsp/job_listing.jsp").forward(request, response);
+    			dispatcherJobListing.include( request, response ); 
     		} else {
     			errorMessage = "";
     			int page = 1;
@@ -98,7 +126,8 @@ public class JobListingController
     			session.setAttribute("jobDetailsList", jobDetailsList);
     			session.setAttribute("currentPage", Integer.valueOf(page));
     			session.setAttribute("noOfPages", Integer.valueOf(noOfPages));
-    			request.getRequestDispatcher("/WEB-INF/jsp/job_listing.jsp").forward(request, response);
+    			//request.getRequestDispatcher("/WEB-INF/jsp/job_listing.jsp").forward(request, response);
+    			dispatcherJobListing.include( request, response ); 
     		}
     	}
     }

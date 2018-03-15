@@ -270,22 +270,22 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script src="http://iamrohit.in/lab/js/location.js"></script> -->
 <div class="form-group">
-	 <select id="countySel" class="form-control">
+	 <select id="countySel" name="country" class="form-control" required="required">
         <option value="" selected="selected">Select Country</option>
     </select>
 </div>
 <div class="form-group">  
-    <select id="stateSel" class="form-control">
+    <select id="stateSel" name="state" class="form-control" required="required">
         <option value="" selected="selected">Select State</option>
     </select>
 </div>
 <div class="form-group">
-    <select id="citySel" class="form-control" >
+    <select id="citySel" name="city" class="form-control" required="required">
         <option value="" selected="selected">Select City</option>
     </select>
 </div>
 <div class="form-group">    
-    <select id="zipSel" class="form-control" >
+    <select id="zipSel" name="zipCode" class="form-control" required="required">
         <option value="" selected="selected">Select Zip</option>
     </select>
 </div>  

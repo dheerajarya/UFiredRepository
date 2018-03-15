@@ -118,6 +118,10 @@
 				out.println(session.getId());*/
 				out.println(name);
 			}
+			
+			if (session.getAttribute("jobApplyMsg") != null) {
+				String jobApplyMsg = (String) session.getAttribute("jobApplyMsg"); 
+			}
 		}
 	%> 
                   
@@ -243,6 +247,9 @@
 
 
 <div class="col-md-9 col-ld-9 col-xs-12 col-sm-9">
+ 
+
+ 
 
 <label for="errorMessage" style="text-align: center; color:red;">${errorMessage}</label>
 <c:forEach var="jobDtl" items="${jobDetailsList}">
