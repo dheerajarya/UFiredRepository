@@ -398,7 +398,7 @@ Fired Put a Video what you Learnt Get Hired.</p>
 <div class="modal fade bs-modal-sm" id="myModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
+            <span aria-hidden="true">×¼/span>
           </button>
             <strong>Login</strong>
               
@@ -472,7 +472,7 @@ Fired Put a Video what you Learnt Get Hired.</p>
       </div>
     </div>
     </div>  
-    <!-- Main JS  -->
+    <!-- Main JS  --> 
     <script type="text/javascript" src="assets/js/jquery-min.js"></script>      
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>    
     <script type="text/javascript" src="assets/js/material.min.js"></script>
@@ -491,16 +491,15 @@ Fired Put a Video what you Learnt Get Hired.</p>
     <script type="text/javascript" src="assets/js/jquery.themepunch.tools.min.js"></script>
     </form>
 <script>
-			function onSignIn(googleUser) {
+			 function onSignIn(googleUser) {
 				  var profile = googleUser.getBasicProfile();
-				 // var imagurl=profile.getImageUrl();
+				  var imagurl=profile.getImageUrl();
 				  var name=profile.getName();
 				  var email=profile.getEmail();
-				  //document.getElementById("myImg").src = imagurl;
-				  //document.getElementById("name").innerHTML = name;
-				  request.setAttribute("name",name);
+				  document.getElementById("myImg").src = imagurl;
+				  document.getElementById("name").innerHTML = name;
 				  document.getElementById("myP").style.visibility = "hidden";
-				  window.location = "JobListingController?email='+email+'&name='+name+'"
+				  document.getElementById("status").innerHTML = 'Welcome '+name+'!<a href=JobListingController?email='+email+'&name='+name+'/>Continue with Google login</a></p>'
 			 }
 </script>
 </body>
